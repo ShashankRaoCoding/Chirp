@@ -1,0 +1,152 @@
+<html>
+<head>
+<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		background-color: transparent;
+		font-family: sans-serif;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		height: 94%;
+		margin: 0;
+		justify-content: flex-end;
+		background-color: transparent;
+		padding: 20px;
+	}
+
+	.messages {
+		display: flex;
+		flex-direction: column;
+		background: #111;
+		color: white;
+		border-radius: 10px;
+		padding: 10px;
+		width: 100%;
+		box-sizing: border-box;
+		gap: 5px;
+	}
+
+	.message {
+		padding: 8px 12px;
+		border-radius: 8px;
+		max-width: 70%;
+		word-wrap: break-word;
+	}
+
+	.message.user {
+		background-color: #333;
+		align-self: flex-end;
+		text-align: right;
+	}
+
+	.message.server {
+		background-color: #555;
+		align-self: flex-start;
+		text-align: left;
+	}
+
+	.chat-container {
+		margin-top: 10px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: black;
+		border-radius: 10px;
+		padding: 10px;
+		gap: 10px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	input {
+		color: white;
+		border-radius: 5px;
+		width: 100%;
+		min-width: 400px;
+		background-color: rgb(51, 51, 51);
+		border: none;
+		padding: 10px;
+		font-size: 16px;
+	}
+
+</style>
+</head>
+<body>
+
+	<div class="messages"></div>
+
+	<div class="chat-container">
+		<input type="text" id="input" placeholder="  Type a message" autocomplete="off" />
+	</div>
+
+<script>
+	const messagesEl = document.querySelector('.messages');
+	const inputEl = document.getElementById('input');
+
+	function addMessage(text, sender) {
+		const messageEl = document.createElement('div');
+		messageEl.classList.add('message', sender);
+		messageEl.textContent = text;
+		messagesEl.appendChild(messageEl);
+		messageEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}
+async function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+
+  addMessage(text, 'user');
+  inputEl.value = '';
+  inputEl.focus();
+
+  // Create a message div for the AI response with a loading placeholder
+  const messageEl = document.createElement('div');
+  messageEl.classList.add('message', 'server');
+  messageEl.textContent = 'Loading...'; // Initial loading text
+  messagesEl.appendChild(messageEl);
+  messageEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+  try {
+    const response = await fetch('/message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: text })
+    });
+
+    if (!response.ok) throw new Error('Server error');
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+    let serverMessage = '';
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      if (value) {
+        const chunk = decoder.decode(value, { stream: true });
+        serverMessage += chunk;
+        messageEl.textContent = serverMessage;
+        messageEl.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    }
+  } catch (err) {
+    // Replace loading text with error message
+    messageEl.textContent = 'Error: ' + err.message;
+  }
+}
+
+	inputEl.addEventListener('keydown', e => {
+		if (e.key === 'Enter') {
+			sendMessage();
+			e.preventDefault();
+		}
+	});
+</script>
+
+</body>
+</html>
