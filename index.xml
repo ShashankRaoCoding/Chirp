@@ -5,6 +5,24 @@
       <link>https://shanksmakesstuff.xyz</link>
       <description>Last 10 notes on ShanksMakesStuff</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
-      
+      <item>
+    <title>README</title>
+    <link>https://shanksmakesstuff.xyz/README</link>
+    <guid>https://shanksmakesstuff.xyz/README</guid>
+    <description>🐦 Chirp: Whisper with AI Chirp is a sleek, transparent desktop overlay that provides a whisper-quiet interface for chatting with a local LLaMA 3 model via Ollama.</description>
+    <pubDate>Sat, 28 Jun 2025 10:46:56 GMT</pubDate>
+  </item><item>
+    <title>Chirp</title>
+    <link>https://shanksmakesstuff.xyz/Chirp</link>
+    <guid>https://shanksmakesstuff.xyz/Chirp</guid>
+    <description>Chirp is an elegant, ultra-minimalist AI chat overlay built for seamless interaction with local LLMs like LLaMA 3 via Ollama.</description>
+    <pubDate>Sat, 28 Jun 2025 10:33:20 GMT</pubDate>
+  </item><item>
+    <title>index</title>
+    <link>https://shanksmakesstuff.xyz/</link>
+    <guid>https://shanksmakesstuff.xyz/</guid>
+    <description> window.location.href = `shashankraocoding.github.io/Chirp/Chirp.html` .page-title { font-size: 1.70rem; } .</description>
+    <pubDate>Sat, 28 Jun 2025 10:32:02 GMT</pubDate>
+  </item>
     </channel>
   </rss>
