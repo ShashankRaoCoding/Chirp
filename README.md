@@ -120,8 +120,7 @@ Chirp is provided **as-is**, with no guarantees or warranties. By using this app
 * 🖥️ **Platform Limitations**: Chirp has only been tested on **Windows**. Behavior on other platforms is unverified and unsupported.
 * 🔧 **System Resources**: Running large language models locally can be resource-intensive. Monitor your system performance and usage while using this tool.
 
-By using Chirp, you agree that the developers and contributors are **not liable** for any damages, data loss, or issues arising from its use.
+By using Chirp, you agree that the developers and contributors are **not liable** for any damages, data loss, or issues arising from its use, including as a result of negligence.
 
 ---
 
-Would you like to automatically include this in the README I wrote earlier?
